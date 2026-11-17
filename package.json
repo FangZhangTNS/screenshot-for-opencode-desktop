@@ -1,0 +1,59 @@
+{
+  "name": "screenshot-for-opencode-desktop",
+  "version": "0.1.0",
+  "description": "Screenshot and annotation plugin for the OpenCode desktop app: capture a region, draw on it, send it to the composer.",
+  "license": "MIT",
+  "author": "FangZhangTNS",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FangZhangTNS/screenshot-for-opencode-desktop.git"
+  },
+  "homepage": "https://github.com/FangZhangTNS/screenshot-for-opencode-desktop#readme",
+  "bugs": {
+    "url": "https://github.com/FangZhangTNS/screenshot-for-opencode-desktop/issues"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "screenshot",
+    "annotation",
+    "electron",
+    "windows"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./gui-experimental": "./dist/gui-experimental.cjs"
+  },
+  "scripts": {
+    "build:server": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:@opencode/plugin",
+    "build:gui": "npm run build:editor && vite build",
+    "build": "npm run build:editor && npm run build:server && npm run build:gui",
+    "typecheck": "tsc --noEmit",
+    "test:build": "esbuild test/*.test.ts --bundle --platform=node --format=esm --outdir=.test --log-level=warning",
+    "test": "npm run test:build && node --test \".test/*.test.js\"",
+    "prepare": "npm run build",
+    "watch": "npm run build:editor && vite build --watch",
+    "build:editor": "esbuild src/editor-window.ts --bundle --format=iife --platform=browser --target=chrome120 --outfile=dist/editor-window.js"
+  },
+  "devDependencies": {
+    "@opencode/plugin": "2.2.5",
+    "effect": "4.0.6",
+    "esbuild": "^0.28.2",
+    "solid-js": "^1.9.0",
+    "typescript": "^5.7.0",
+    "vite": "^8.0.0",
+    "vite-plugin-solid": "^2.11.15"
+  },
+  "engines": {
+    "node": ">=22.12"
+  }
+}

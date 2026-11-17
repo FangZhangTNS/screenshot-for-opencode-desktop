@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.test/
+*.tgz
+*.log
+*.bak
+*.bak_*
+*.orig
+*.orig_*
+.DS_Store
+Thumbs.db
